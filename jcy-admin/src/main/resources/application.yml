@@ -1,0 +1,44 @@
+http:
+  encoding:
+    force: true
+    charset: UTF-8
+    enabled: true
+
+# mysql
+spring:
+    # 环境 dev|test|pro
+    profiles:
+        active: dev
+    datasource:
+        type: com.alibaba.druid.pool.DruidDataSource
+        driverClassName: com.mysql.jdbc.Driver
+        # jackson时间格式化
+    jackson:
+        time-zone: GMT+8
+        date-format: yyyy-MM-dd HH:mm:ss
+    thymeleaf:
+        cache: false
+
+#如下配置可以修改试图跳转的前缀和后缀
+thymeleaf:
+    prefix: classpath:/templates/
+    suffix: .html
+    encoding: UTF-8
+    #Thymeleaf缓存在开发过程中,把缓存关闭,devtools可以实现页面热部署,用于支持页面修改后重新发布到spring-boot内嵌的tomcat中去
+    cache: false
+    #thymeleaf模板对没有结束符的HTML5标签解析出错的解决办法
+    mode: LEGACYHTML5
+
+#tomcat
+server:
+  port: 80
+  tomcat:
+    max-threads: 1000
+    min-spare-threads: 30
+
+#mybatis
+mybatis:
+  mapper-locations: classpath:mapper/*.xml
+  type-aliases-package: com.idou.entity
+  check-config-location: true
+  config-location: classpath:mybatis.xml

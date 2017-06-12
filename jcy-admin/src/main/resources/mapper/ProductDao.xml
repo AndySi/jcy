@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.idou.dao.ProductDao">
+
+    <select id="queryObject" resultType="com.idou.entity.ProductEntity">
+		SELECT
+          p.*,
+          t.`type_name`
+        FROM
+          tb_product p,
+          `tb_product_type` t
+        WHERE p.`type_id` = t.`id`
+          AND p.id = #{value}
+	</select>
+
+    <select id="queryList" resultType="com.idou.entity.ProductEntity">
+        select
+        p.*,
+        t.`type_name`
+        from tb_product p,
+        `tb_product_type` t
+        where
+        p.`type_id` = t.`id`
+        order by
+        p.id desc
+        <if test="offset != null and limit != null">
+            limit #{offset}, #{limit}
+        </if>
+    </select>
+
+    <select id="queryTotal" resultType="int">
+		select count(*) from tb_product 
+	</select>
+
+    <insert id="save" parameterType="com.idou.entity.ProductEntity" useGeneratedKeys="true" keyProperty="id">
+		insert into tb_product
+		(
+			`name`, 
+			`type_id`, 
+			`picture`, 
+			`details`, 
+			`update_time`, 
+			`create_time`
+		)
+		values
+		(
+			#{name}, 
+			#{typeId}, 
+			#{picture}, 
+			#{details}, 
+			NOW(),
+			NOW()
+		)
+	</insert>
+
+    <update id="update" parameterType="com.idou.entity.ProductEntity">
+        update tb_product
+        <set>
+            <if test="name != null">`name` = #{name},</if>
+            <if test="typeId != null">`type_id` = #{typeId},</if>
+            <if test="picture != null">`picture` = #{picture},</if>
+            <if test="details != null">`details` = #{details},</if>
+        </set>
+        `update_time` = #{updateTime}
+        where id = #{id}
+    </update>
+
+    <delete id="delete">
+		delete from tb_product where id = #{value}
+	</delete>
+
+    <delete id="deleteBatch">
+        delete from tb_product where id in
+        <foreach item="id" collection="array" open="(" separator="," close=")">
+            #{id}
+        </foreach>
+    </delete>
+
+</mapper>

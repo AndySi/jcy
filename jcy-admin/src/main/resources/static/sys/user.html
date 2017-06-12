@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>管理员管理</title>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
+    <link rel="stylesheet" href="../public/css/lib/bootstrap.min.css">
+    <link rel="stylesheet" href="../public/css/lib/font-awesome.min.css">
+    <link rel="stylesheet" href="../public/js/plugins/jqgrid/ui.jqgrid-bootstrap.css">
+    <link rel="stylesheet" href="../public/js/plugins/ztree/css/metroStyle/metroStyle.css">
+    <link rel="stylesheet" href="../public/js/plugins/layui/css/layui.css">
+    <link rel="stylesheet" href="../public/css/define/comm.css">
+    <script src="../public/js/lib/jquery.min.js"></script>
+    <script src="../public/js/plugins/layer/layer.js"></script>
+    <script src="../public/js/lib/bootstrap.min.js"></script>
+    <script src="../public/js/lib/vue.min.js"></script>
+    <script src="../public/js/plugins/jqgrid/grid.locale-cn.js"></script>
+    <script src="../public/js/plugins/jqgrid/jquery.jqGrid.min.js"></script>
+    <script src="../public/js/plugins/ztree/jquery.ztree.all.min.js"></script>
+    <script src="../public/js/define/common.js"></script>
+</head>
+<body>
+<section class="layui-app-box">
+    <div id="vApp" v-cloak>
+        <div v-show="showList">
+            <div class="layui-form-item">
+                <div class="layui-input-inline">
+                    <input type="text" v-model="q.username" @keyup.enter="query" placeholder="用户名" autocomplete="off" class="layui-input">
+                </div>
+                <button class="layui-btn" @click="query"><i class="fa fa-search"></i>&nbsp;查询</button>
+                <button v-if="hasPermission('sys:user:save')" class="layui-btn layui-btn-normal" @click="add"><i class="fa fa-plus"></i>&nbsp;新增</button>
+                <button v-if="hasPermission('sys:user:update')" class="layui-btn layui-btn-warm" @click="update"><i class="fa fa-pencil-square-o"></i>&nbsp;修改</button>
+                <button v-if="hasPermission('sys:user:delete')" class="layui-btn layui-btn-danger" @click="del"><i class="fa fa-trash-o"></i>&nbsp;删除</button>
+            </div>
+            <table id="jqGrid"></table>
+            <div id="jqGridPager"></div>
+        </div>
+
+        <div v-show="!showList" class="panel panel-default">
+            <div class="panel-heading">{{title}}</div>
+            <form class="form-horizontal">
+                <div class="form-group">
+                    <div class="col-sm-2 control-label">用户名</div>
+                    <div class="col-sm-10">
+                        <input type="text" class="form-control" v-model="user.username" placeholder="登录账号"/>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <div class="col-sm-2 control-label">密码</div>
+                    <div class="col-sm-10">
+                        <input type="text" class="form-control" v-model="user.password" placeholder="密码"/>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <div class="col-sm-2 control-label">邮箱</div>
+                    <div class="col-sm-10">
+                        <input type="text" class="form-control" v-model="user.email" placeholder="邮箱"/>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <div class="col-sm-2 control-label">手机号</div>
+                    <div class="col-sm-10">
+                        <input type="text" class="form-control" v-model="user.mobile" placeholder="手机号"/>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <div class="col-sm-2 control-label">角色</div>
+                    <div class="col-sm-10">
+                        <label v-for="role in roleList" class="checkbox-inline">
+                            <input type="checkbox" :value="role.roleId" v-model="user.roleIdList">{{role.roleName}}
+                        </label>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <div class="col-sm-2 control-label">状态</div>
+                    <label class="radio-inline">
+                        <input type="radio" name="status" value="0" v-model="user.status"/> 禁用
+                    </label>
+                    <label class="radio-inline">
+                        <input type="radio" name="status" value="1" v-model="user.status"/> 正常
+                    </label>
+                </div>
+                <div class="form-group">
+                    <div class="col-sm-2 control-label"></div>
+                    <input type="button" class="btn btn-primary" @click="saveOrUpdate" value="确定"/>
+                    &nbsp;&nbsp;<input type="button" class="btn btn-warning" @click="reload" value="返回"/>
+                </div>
+            </form>
+        </div>
+    </div>
+</section>
+<script src="../public/js/define/sys.user.js"></script>
+</body>
+</html>

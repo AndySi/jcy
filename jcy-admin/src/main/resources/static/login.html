@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
+    <title>后台系统管理</title>
+    <link rel="stylesheet" href="public/css/lib/font-awesome.min.css">
+    <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/meyer-reset/2.0/reset.min.css">
+    <link rel="stylesheet" href="public/css/define/comm.css">
+    <link rel="stylesheet" href="public/css/define/login.css">
+</head>
+
+<body>
+<div class="login" id="div-login" v-cloak>
+    <h1>后台系统管理</h1>
+    <form class="form" method="post" action="javascript:;">
+        <p class="field">
+            <input id="uName" type="text" v-model="username" placeholder="用户名"/>
+            <i class="fa fa-user"></i>
+        </p>
+
+        <p class="field">
+            <input id="uPwd" type="password" v-model="password" placeholder="密码"/>
+            <i class="fa fa-lock"></i>
+        </p>
+
+        <p class="field" style="margin-top: 15px;">
+            <input id="uCaptcha" type="text" v-model="captcha" @keyup.enter="login" placeholder="验证码"/>
+            <i class="fa fa-exclamation-triangle"></i>
+        </p>
+
+        <p class="field">
+            <img alt="如果看不清楚，请单击图片刷新！" :src="src" @click="refreshCode"/><a href="javascript:;"
+                                                                           @click="refreshCode">点击刷新</a>
+        </p>
+
+        <p class="submit">
+            <input type="button" @click="login" value="登录">
+        </p>
+    </form>
+</div>
+<div class="copyright">
+    <p>Copyright &copy; 2017. Created by <a href="javascript:;" target="_blank">AndySi</a></p>
+</div>
+<script src="public/js/lib/jquery.min.js"></script>
+<script src="public/js/lib/vue.min.js"></script>
+<script src="public/js/plugins/layer/layer.js"></script>
+<script src="public/js/define/common.js"></script>
+<script src="public/js/define/login.js"></script>
+</body>
+</html>

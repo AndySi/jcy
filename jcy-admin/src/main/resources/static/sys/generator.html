@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>代码生成器</title>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
+    <link rel="stylesheet" href="../public/css/lib/bootstrap.min.css">
+    <link rel="stylesheet" href="../public/css/lib/font-awesome.min.css">
+    <link rel="stylesheet" href="../public/js/plugins/jqgrid/ui.jqgrid-bootstrap.css">
+    <link rel="stylesheet" href="../public/js/plugins/ztree/css/metroStyle/metroStyle.css">
+    <link rel="stylesheet" href="../public/js/plugins/layui/css/layui.css">
+    <link rel="stylesheet" href="../public/css/define/comm.css">
+    <script src="../public/js/lib/jquery.min.js"></script>
+    <script src="../public/js/plugins/layer/layer.js"></script>
+    <script src="../public/js/lib/bootstrap.min.js"></script>
+    <script src="../public/js/lib/vue.min.js"></script>
+    <script src="../public/js/plugins/jqgrid/grid.locale-cn.js"></script>
+    <script src="../public/js/plugins/jqgrid/jquery.jqGrid.min.js"></script>
+    <script src="../public/js/plugins/ztree/jquery.ztree.all.min.js"></script>
+    <script src="../public/js/define/common.js"></script>
+</head>
+<body>
+<section class="layui-app-box">
+    <div id="rrapp">
+        <div class="grid-btn">
+            <div class="form-group col-sm-2">
+                <input type="text" class="form-control" v-model="q.tableName" @keyup.enter="query" placeholder="表名">
+            </div>
+            <button class="layui-btn" @click="query">查询</button>
+            <button class="layui-btn layui-btn-normal" @click="generator"><i class="fa fa-file-code-o"></i>&nbsp;生成代码
+            </button>
+        </div>
+        <table id="jqGrid"></table>
+        <div id="jqGridPager"></div>
+    </div>
+</section>
+<script src="../public/js/define/sys.generator.js"></script>
+</body>
+</html>

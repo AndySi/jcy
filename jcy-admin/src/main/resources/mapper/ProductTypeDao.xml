@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.idou.dao.ProductTypeDao">
+	<select id="queryObject" resultType="com.idou.entity.ProductTypeEntity">
+		select * from tb_product_type where id = #{value}
+	</select>
+
+	<select id="queryAll" resultType="com.idou.entity.ProductTypeEntity">
+		select * from tb_product_type
+	</select>
+
+	<select id="queryList" resultType="com.idou.entity.ProductTypeEntity">
+		select * from tb_product_type
+        <choose>
+            <when test="sidx != null and sidx.trim() != ''">
+                order by ${sidx} ${order}
+            </when>
+			<otherwise>
+                order by id desc
+			</otherwise>
+        </choose>
+		<if test="offset != null and limit != null">
+			limit #{offset}, #{limit}
+		</if>
+	</select>
+	
+ 	<select id="queryTotal" resultType="int">
+		select count(*) from tb_product_type 
+	</select>
+	 
+	<insert id="save" parameterType="com.idou.entity.ProductTypeEntity" useGeneratedKeys="true" keyProperty="id">
+		insert into tb_product_type
+		(
+			`type_name`, 
+			`update_time`, 
+			`create_time`
+		)
+		values
+		(
+			#{typeName}, 
+			NOW(),
+			NOW()
+		)
+	</insert>
+	 
+	<update id="update" parameterType="com.idou.entity.ProductTypeEntity">
+		update tb_product_type 
+		<set>
+			`type_name` = #{typeName},
+			`update_time` = NOW()
+		</set>
+		where id = #{id}
+	</update>
+	
+	<delete id="delete">
+		delete from tb_product_type where id = #{value}
+	</delete>
+	
+	<delete id="deleteBatch">
+		delete from tb_product_type where id in 
+		<foreach item="id" collection="array" open="(" separator="," close=")">
+			#{id}
+		</foreach>
+	</delete>
+
+</mapper>

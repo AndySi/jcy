@@ -1,0 +1,23 @@
+#datasource
+datasource:
+   druid:
+      url: jdbc:mysql://localhost:3306/jinchaoyuan?useUnicode=true&characterEncoding=UTF-8&autoReconnect=true&createDatabaseIfNotExist=true&useSSL=true
+      username: root
+      password: rootpwd
+      filters: stat,slf4j
+      initialSize: 10
+      maxActive: 100
+      maxWait: 60000
+      minIdle: 5
+      timeBetweenEvictionRunsMillis: 60000
+      minEvictableIdleTimeMillis: 300000
+      validationQuery: SELECT 'x'
+      testWhileIdle: true
+      testOnBorrow: false
+      testOnReturn: false
+      poolPreparedStatements: true
+      maxPoolPreparedStatementPerConnectionSize: 20
+
+#公司地址
+company:
+  address: 湖南省长沙市
